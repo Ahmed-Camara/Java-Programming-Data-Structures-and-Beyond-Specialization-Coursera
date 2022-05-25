@@ -67,7 +67,47 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		
+		
+		
+		
+		char []chars = word.toCharArray();
+		int size = chars.length;
+		boolean lastChar = false;
+		int countS = 0;
+		
+		for(int i = 0; i < size; i++) {
+			boolean found = verifyVowel(chars[i]);
+			
+			if (found && !lastChar ) {
+				countS += 1;
+				lastChar = true;
+
+			} else if(found) {
+				lastChar = true;
+			} else {
+				lastChar = false;
+			}
+		}
+		
+		if( Character.toLowerCase(chars[chars.length-1]) == 'e' &&
+				!verifyVowel(chars[chars.length-2])
+				&& countS > 1) {
+			countS -= 1;
+		}
+	    return countS;
+	}
+	
+	private boolean verifyVowel(char c) {
+		char ch = Character.toLowerCase(c);
+		
+		if(ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' 
+				|| ch == 'y') {
+			
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/** A method for testing
